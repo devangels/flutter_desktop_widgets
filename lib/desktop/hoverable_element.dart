@@ -63,12 +63,14 @@ class HoverableElement extends RenderObjectElement {
 
   void hoverStarted() {
     _hovering = true;
+    print("HOVER JUST STARTED");
     widget.onHover();
     markNeedsBuild();
   }
 
   void hoverEnd() {
     _hovering = false;
+    print("HOVER IS NO OVER");
     widget.onLeaveHover();
     markNeedsBuild();
   }
@@ -91,6 +93,7 @@ class HoverableElement extends RenderObjectElement {
   void unmount() {
     super.unmount();
     HoverManager.instance.removeElement(this);
+    print("IM GONE BYE");
   }
 
 
@@ -99,7 +102,7 @@ class HoverableElement extends RenderObjectElement {
     Widget built = widget.builder(this, _hovering);
     _child = updateChild(_child, built, null);
     assert(_child != null);
-    renderObject.markNeedsLayout();
+   // renderObject.markNeedsLayout();
     super.performRebuild(); // Calls widget.updateRenderObject (a no-op in this case).
   }
 
@@ -158,39 +161,24 @@ class HoverableRenderBox extends RenderProxyBox {
 
   final HoverableElement hoverableElement2;
 
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    super.paint(context, offset);
+    final Offset topLeft = localToGlobal(Offset.zero);
+    Rect pos = Rect.fromPoints(topLeft, Offset(topLeft.dx + size.width, topLeft.dy + size.height));
+    HoverManager.instance.updateBox(hoverableElement2, pos);
+
+  }
 
 
   @override
   void performLayout() {
-    print("Relayouting");
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      final Offset topLeft = localToGlobal(Offset.zero);
-      Rect pos = Rect.fromPoints(topLeft, Offset(topLeft.dx + size.width, topLeft.dy + size.height));
-      HoverManager.instance.updateBox(hoverableElement2, pos);
-    });
-
       if (child != null) {
       child.layout(constraints, parentUsesSize: true);
       size = child.size;
     } else {
       performResize();
     }
-
-    @override
-    void paint(PaintingContext context, Offset offset) {
-      super.paint(context, offset);
-      print("PAINTING");
-
-    }
-
-    @override
-    void markNeedsCompositingBitsUpdate() {
-      super.markNeedsCompositingBitsUpdate();
-      print("markNeedsCompositingBitsUpdate");
-    }
-
-
-
 
   }
 

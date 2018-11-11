@@ -44,6 +44,7 @@ class HoverManager {
     }
 
 
+    print("Handing event");
     for(HoverableElement element in map.keys) {
       if(isInside(map[element], position.dx, position.dy)) {
         if(!_currentlyHovering.contains(element)) {
@@ -65,7 +66,7 @@ class HoverManager {
 
   void updateBox(HoverableElement hoverableElement2, Rect pos) {
     map[hoverableElement2] = pos;
-    print(pos);
+    //print("Updated $hoverableElement2 with pos: $pos");
   }
 
 }
