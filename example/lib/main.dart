@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'
+    show debugDefaultTargetPlatformOverride;
+import 'package:flutter_desktop_widgets/desktop/hoverable_element.dart';
+import 'package:flutter_desktop_widgets/desktop/hoverable_widget.dart';
 
-void main() => runApp(new MyApp());
-
+void main() {
+  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  runApp(new MyApp());
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,6 +30,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  bool pushed = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -31,10 +39,29 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text('Flutter Demo Home Page'),
       ),
       body: new Center(
-       child: Container(
-         child: Material(
-           child: Text('Flutter Demo Home Page'),
-         ),
+       child: Column(
+         children: <Widget>[
+           AnimatedContainer(height: pushed? 200.0: 0.0, duration: Duration(seconds: 2),),
+           HoverableWidget(
+             builder: (context, hover) {
+               return Container(
+                 height: 100.0,
+                 width: 100.0,
+                 child: GestureDetector(
+                   onTap: () {
+                      setState(() {
+                        pushed = !pushed;
+                      });
+                   },
+                   child: Material(
+                     color: Colors.red,
+                     elevation: hover? 8.0 : 0.0,
+                   ),
+                 ),
+               );
+             },
+           ),
+         ],
        ),
       ),
     );

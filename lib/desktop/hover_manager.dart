@@ -2,54 +2,70 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/desktop/hoverable_element.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_desktop_widgets/desktop/hoverable_element.dart';
+
+
+HoverManager _hoverManager = HoverManager();
 
 class HoverManager {
 
+  // TODO no static
+  static HoverManager instance = _hoverManager;
 
-  List<Holder> list = [];
-
-  List<Holder> _currentlyHovering = [];
-
-  void handleHover(PointerHoverEvent hoverEvent) {
+  final MethodChannel _methodChannel = const MethodChannel('flutter/desktop', JSONMethodCodec() );
 
 
+  HoverManager() {
+    _methodChannel.setMethodCallHandler((MethodCall call) {
+      if(call.method == 'onPositionChanged') {
+        // TODO when an element receives focus no calls are coming in from the method channel
+        final double physicalX = call.arguments['physicalX'];
+        final double physicalY = call.arguments['physicalY'];
+     //   final Duration timeStamp = Duration(milliseconds: call.arguments['timeStamp']);
+        final Offset offset = Offset(physicalX, physicalY);
+        handleHover(offset);
+      }
+    });
+  }
 
+  Map<HoverableElement, Rect> map = {};
+ // List<Holder> list = [];
+
+  List<HoverableElement> _currentlyHovering = [];
+
+  void handleHover(Offset position) {
+
+    // Boooo
     bool isInside(Rect rect, double x, double y) {
       if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) return true;
       return false;
     }
 
 
-    for(Holder holder in list) {
-      if(isInside(holder.pos, hoverEvent.position.dx, hoverEvent.position.dy)) {
-        if(!_currentlyHovering.contains(holder)) {
-          _currentlyHovering.add(holder);
-          holder.element.hoverStarted();
+    for(HoverableElement element in map.keys) {
+      if(isInside(map[element], position.dx, position.dy)) {
+        if(!_currentlyHovering.contains(element)) {
+          _currentlyHovering.add(element);
+          element.hoverStarted();
         } else {
-          holder.element.onHoverTick();
+          element.onHoverTick();
         }
-      } else if(_currentlyHovering.contains(holder)) {
-        holder.element.hoverEnd();
-        _currentlyHovering.remove(holder);
+      } else if(_currentlyHovering.contains(element)) {
+        element.hoverEnd();
+        _currentlyHovering.remove(element);
       }
     }
   }
 
-  void registerElement(HoverableElement element) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      final RenderBox box = element.findRenderObject();
-      final Offset topLeft = box.localToGlobal(Offset.zero);
-      final Size size = box.size;
-      Rect pos = Rect.fromPoints(topLeft, Offset(topLeft.dx + size.width, topLeft.dy + size.height));
-      list.add(Holder(pos, element));
-
-    });
+  void removeElement(HoverableElement element) {
+    map.remove(element);
   }
 
-  void removeElement(HoverableElement element) {
-
+  void updateBox(HoverableElement hoverableElement2, Rect pos) {
+    map[hoverableElement2] = pos;
+    print(pos);
   }
 
 }

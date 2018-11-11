@@ -1,6 +1,6 @@
-import 'package:flutter/desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_desktop_widgets/desktop/hoverable_widget.dart';
 
 class CursorWidget extends StatefulWidget {
 
