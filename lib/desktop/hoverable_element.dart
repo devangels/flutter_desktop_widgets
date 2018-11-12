@@ -187,7 +187,7 @@ class HoverableRenderBox extends RenderProxyBox {
 
   @override
   void performLayout() {
-      if (child != null) {
+    if (child != null) {
       child.layout(constraints, parentUsesSize: true);
       size = child.size;
     } else {

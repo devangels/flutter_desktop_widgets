@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="06550ed3-1113-4b84-ba89-412df665389e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/desktop/hover_manager.dart" afterPath="$PROJECT_DIR$/lib/desktop/hover_manager.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" afterPath="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -20,8 +19,8 @@
       <file leaf-file-name="hoverable_element.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="178" column="49" lean-forward="false" selection-start-line="178" selection-start-column="49" selection-end-line="178" selection-end-column="49" />
+            <state relative-caret-position="557">
+              <caret line="192" column="4" lean-forward="false" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -451,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542024259955</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added docs, hover works with moving objects">
+      <created>1542031832887</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1542031832887</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -508,7 +514,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed bug" />
     <MESSAGE value="refactored stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored stuff" />
+    <MESSAGE value="added docs, hover works with moving objects" />
+    <option name="LAST_COMMIT_MESSAGE" value="added docs, hover works with moving objects" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -673,8 +680,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="178" column="49" lean-forward="false" selection-start-line="178" selection-start-column="49" selection-end-line="178" selection-end-column="49" />
+        <state relative-caret-position="557">
+          <caret line="192" column="4" lean-forward="false" selection-start-line="192" selection-start-column="4" selection-end-line="192" selection-end-column="4" />
           <folding />
         </state>
       </provider>
