@@ -16,22 +16,19 @@ class HoverManager {
 
   final MethodChannel _methodChannel = const MethodChannel('flutter/desktop', JSONMethodCodec() );
 
-
   HoverManager() {
     _methodChannel.setMethodCallHandler((MethodCall call) {
       if(call.method == 'onPositionChanged') {
-        // TODO when an element receives focus no calls are coming in from the method channel
         final double physicalX = call.arguments['physicalX'];
         final double physicalY = call.arguments['physicalY'];
      //   final Duration timeStamp = Duration(milliseconds: call.arguments['timeStamp']);
         final Offset offset = Offset(physicalX, physicalY);
-        handleHover(offset);
+        _handleHover(offset);
       }
     });
   }
-
-  Map<HoverableElement, Rect> map = {};
- // List<Holder> list = [];
+  // TODO structure to handle depth search
+  Map<HoverableElement, Rect> _hoverableElements = {};
 
   List<HoverableElement> _currentlyHovering = [];
 
@@ -39,29 +36,42 @@ class HoverManager {
   /// save the last cursor position and check against it if the position changes
   Offset _lastPosition;
 
-  void handleHover(Offset position) {
 
-
+  void _handleHover(Offset position) {
     _lastPosition = position;
-    for(HoverableElement element in map.keys) {
+    for(HoverableElement element in _hoverableElements.keys) {
       _checkCollision(element, position);
     }
   }
 
+  /// Removes the given element from the internal map.
+  ///
+  /// This means that the element can no longer receive hover events. This is
+  /// usually called in the elements [unmount]
   void removeElement(HoverableElement element) {
-    map.remove(element);
+    _hoverableElements.remove(element);
   }
 
+  /// When the RenderObject moves the a different position this is called.
+  ///
+  /// Because the hovering state can also change without the cursor moving this
+  /// needs to be handled.
+  ///
+  /// This schedules a post frame callback to handle the hover because we are
+  /// currently in the middle of a frame.
   void updateBox(HoverableElement element, Rect pos) {
     assert(element != null);
     assert(pos != null);
-    map[element] = pos;
-    //print("Updated $hoverableElement2 with pos: $pos");
+    _hoverableElements[element] = pos;
+
     // Because at the very first frame it is null
     if(_lastPosition != null) {
-      _checkCollision(element, _lastPosition);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _checkCollision(element, _lastPosition);
+      });
     }
   }
+
 
 
   bool _isInside(Rect rect, double x, double y) {
@@ -70,7 +80,7 @@ class HoverManager {
   }
 
   void _checkCollision(HoverableElement element, Offset position) {
-    if(_isInside(map[element], position.dx, position.dy)) {
+    if(_isInside(_hoverableElements[element], position.dx, position.dy)) {
       if(!_currentlyHovering.contains(element)) {
         _currentlyHovering.add(element);
         element.hoverStarted();
@@ -78,30 +88,9 @@ class HoverManager {
         element.onHoverTick();
       }
     } else if(_currentlyHovering.contains(element)) {
-      element.hoverEnd();
+       element.hoverEnd();
       _currentlyHovering.remove(element);
     }
   }
-
-}
-
-class Holder {
-
-  Holder(this.pos, this.element);
-
-  final Rect pos;
-  final HoverableElement element;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-          other is Holder &&
-              runtimeType == other.runtimeType &&
-              element == other.element;
-
-  @override
-  int get hashCode => element.hashCode;
-
-
 
 }

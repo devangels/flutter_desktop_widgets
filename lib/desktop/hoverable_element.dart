@@ -57,26 +57,39 @@ class HoverableElement extends RenderObjectElement {
 
   bool _hovering = false;
 
+
+  /// Called by the HoverManager when the cursor moves across the hoverable area.
   void onHoverTick() {
     widget.onHoverTick();
   }
 
+  /// Called by the HoverManager when the hover is started.
   void hoverStarted() {
     _hovering = true;
-    print("HOVER JUST STARTED");
-    if(SchedulerBinding.instance.schedulerPhase == SchedulerPhase.persistentCallbacks) {
-     // RendererBinding.instance.pipelineOwner.
-      print("YEP NEW FRAME A___________________________");
+    if(owner.debugBuilding) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        widget.onHover();
+        markNeedsBuild();
+      });
+    } else {
+      widget.onHover();
+      markNeedsBuild();
     }
-    widget.onHover();
-    markNeedsBuild();
   }
 
+
+  /// Called by the HoverManager when the hover is ended.
   void hoverEnd() {
     _hovering = false;
-    print("HOVER IS NO OVER");
-    widget.onLeaveHover();
-    markNeedsBuild();
+    if(owner.debugBuilding) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        widget.onLeaveHover();
+        markNeedsBuild();
+      });
+    } else {
+      widget.onLeaveHover();
+      markNeedsBuild();
+    }
   }
 
 
@@ -97,7 +110,6 @@ class HoverableElement extends RenderObjectElement {
   void unmount() {
     super.unmount();
     HoverManager.instance.removeElement(this);
-    print("IM GONE BYE");
   }
 
 
@@ -106,7 +118,6 @@ class HoverableElement extends RenderObjectElement {
     Widget built = widget.builder(this, _hovering);
     _child = updateChild(_child, built, null);
     assert(_child != null);
-   // renderObject.markNeedsLayout();
     super.performRebuild(); // Calls widget.updateRenderObject (a no-op in this case).
   }
 
@@ -160,20 +171,19 @@ class HoverableElement extends RenderObjectElement {
 
 class HoverableRenderBox extends RenderProxyBox {
 
+  HoverableRenderBox(this.hoverableElement);
 
-  HoverableRenderBox(this.hoverableElement2);
+  final HoverableElement hoverableElement;
 
-  final HoverableElement hoverableElement2;
 
+  // TODO take matrixTransformation into account.
   @override
   void paint(PaintingContext context, Offset offset) {
     super.paint(context, offset);
     final Offset topLeft = localToGlobal(Offset.zero);
     Rect pos = Rect.fromPoints(topLeft, Offset(topLeft.dx + size.width, topLeft.dy + size.height));
-    HoverManager.instance.updateBox(hoverableElement2, pos);
-
+    HoverManager.instance.updateBox(hoverableElement, pos);
   }
-
 
   @override
   void performLayout() {
