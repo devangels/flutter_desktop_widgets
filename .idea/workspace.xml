@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06550ed3-1113-4b84-ba89-412df665389e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flutter_desktop_widgets.iml" afterPath="$PROJECT_DIR$/flutter_desktop_widgets.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/desktop/hover_manager.dart" afterPath="$PROJECT_DIR$/lib/desktop/hover_manager.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" afterPath="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" />
     </list>
@@ -30,11 +27,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hoverable_element.dart" pinned="false" current-in-tab="false">
+      <file leaf-file-name="hoverable_element.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="104" column="5" lean-forward="false" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+            <state relative-caret-position="225">
+              <caret line="67" column="7" lean-forward="false" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="binding.dart" pinned="false" current-in-tab="false">
+        <entry file="file://D:/flutter/packages/flutter/lib/src/scheduler/binding.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="188" column="30" lean-forward="false" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="binding.dart" pinned="false" current-in-tab="false">
+        <entry file="file://D:/flutter/packages/flutter/lib/src/rendering/binding.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1200">
+              <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="framework.dart" pinned="false" current-in-tab="false">
+        <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/framework.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="2169" column="6" lean-forward="false" selection-start-line="2169" selection-start-column="6" selection-end-line="2169" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="binding.dart" pinned="false" current-in-tab="false">
+        <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/binding.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2309">
+              <caret line="600" column="33" lean-forward="false" selection-start-line="600" selection-start-column="7" selection-end-line="600" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -52,17 +89,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hover_manager.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="hover_manager.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/desktop/hover_manager.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="976">
-              <caret line="68" column="6" lean-forward="false" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
+            <state relative-caret-position="375">
+              <caret line="71" column="7" lean-forward="false" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>debugBuildingDirtyElements</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,8 +118,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="D:/flutter/packages/flutter/lib/src/rendering/flex.dart" />
-        <option value="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" />
         <option value="$PROJECT_DIR$/lib/desktop/hover_manager.dart" />
+        <option value="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" />
       </list>
     </option>
   </component>
@@ -192,7 +234,7 @@
   <component name="PropertiesComponent">
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="column&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="renderbin&#9;null&#9;null&#10;column&#9;null&#9;null" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
   </component>
@@ -576,6 +618,14 @@
       <option name="presentableId" value="Default" />
       <updated>1541965634241</updated>
     </task>
+    <task id="LOCAL-00001" summary="fixed bug">
+      <created>1541980239752</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1541980239752</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -619,6 +669,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixed bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -679,14 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/flutter/packages/flutter/lib/src/rendering/object.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="1683" column="7" lean-forward="false" selection-start-line="1683" selection-start-column="7" selection-end-line="1683" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/flutter/packages/flutter/lib/src/rendering/box.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -715,18 +761,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
+    <entry file="file://$PROJECT_DIR$/lib/desktop/hover_manager.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="104" column="5" lean-forward="false" selection-start-line="104" selection-start-column="5" selection-end-line="104" selection-end-column="5" />
+        <state relative-caret-position="375">
+          <caret line="71" column="7" lean-forward="false" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/desktop/hover_manager.dart">
+    <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/binding.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="976">
-          <caret line="68" column="6" lean-forward="false" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
+        <state relative-caret-position="2309">
+          <caret line="600" column="33" lean-forward="false" selection-start-line="600" selection-start-column="7" selection-end-line="600" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/flutter/packages/flutter/lib/src/widgets/framework.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="2169" column="6" lean-forward="false" selection-start-line="2169" selection-start-column="6" selection-end-line="2169" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/flutter/packages/flutter/lib/src/scheduler/binding.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="188" column="30" lean-forward="false" selection-start-line="188" selection-start-column="30" selection-end-line="188" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/flutter/packages/flutter/lib/src/rendering/binding.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1200">
+          <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/flutter/packages/flutter/lib/src/rendering/object.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="742" column="11" lean-forward="false" selection-start-line="742" selection-start-column="11" selection-end-line="742" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="67" column="7" lean-forward="false" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
           <folding />
         </state>
       </provider>

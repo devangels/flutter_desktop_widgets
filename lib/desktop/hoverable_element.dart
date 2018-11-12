@@ -64,6 +64,10 @@ class HoverableElement extends RenderObjectElement {
   void hoverStarted() {
     _hovering = true;
     print("HOVER JUST STARTED");
+    if(SchedulerBinding.instance.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+     // RendererBinding.instance.pipelineOwner.
+      print("YEP NEW FRAME A___________________________");
+    }
     widget.onHover();
     markNeedsBuild();
   }

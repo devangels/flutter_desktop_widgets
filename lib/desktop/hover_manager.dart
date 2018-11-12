@@ -35,28 +35,16 @@ class HoverManager {
 
   List<HoverableElement> _currentlyHovering = [];
 
+  /// Because RenderObjects might move while the cursor is sitting still,
+  /// save the last cursor position and check against it if the position changes
+  Offset _lastPosition;
+
   void handleHover(Offset position) {
 
-    // Boooo
-    bool isInside(Rect rect, double x, double y) {
-      if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) return true;
-      return false;
-    }
 
-
-    print("Handing event");
+    _lastPosition = position;
     for(HoverableElement element in map.keys) {
-      if(isInside(map[element], position.dx, position.dy)) {
-        if(!_currentlyHovering.contains(element)) {
-          _currentlyHovering.add(element);
-          element.hoverStarted();
-        } else {
-          element.onHoverTick();
-        }
-      } else if(_currentlyHovering.contains(element)) {
-        element.hoverEnd();
-        _currentlyHovering.remove(element);
-      }
+      _checkCollision(element, position);
     }
   }
 
@@ -64,9 +52,35 @@ class HoverManager {
     map.remove(element);
   }
 
-  void updateBox(HoverableElement hoverableElement2, Rect pos) {
-    map[hoverableElement2] = pos;
+  void updateBox(HoverableElement element, Rect pos) {
+    assert(element != null);
+    assert(pos != null);
+    map[element] = pos;
     //print("Updated $hoverableElement2 with pos: $pos");
+    // Because at the very first frame it is null
+    if(_lastPosition != null) {
+      _checkCollision(element, _lastPosition);
+    }
+  }
+
+
+  bool _isInside(Rect rect, double x, double y) {
+    if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) return true;
+    return false;
+  }
+
+  void _checkCollision(HoverableElement element, Offset position) {
+    if(_isInside(map[element], position.dx, position.dy)) {
+      if(!_currentlyHovering.contains(element)) {
+        _currentlyHovering.add(element);
+        element.hoverStarted();
+      } else {
+        element.onHoverTick();
+      }
+    } else if(_currentlyHovering.contains(element)) {
+      element.hoverEnd();
+      _currentlyHovering.remove(element);
+    }
   }
 
 }
