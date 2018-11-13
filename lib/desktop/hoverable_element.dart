@@ -14,7 +14,8 @@ class HoverableWidget extends RenderObjectWidget {
 
 
 
-  // TODO IgnorePointer is not an inherited widget, this is why we cant depend on it.
+  // TODO IgnorePointer is not an inherited widget, this is why we can't depend on it.
+  // Possible solution it to create an AbsorbHoverWidget
   HoverableWidget({this.builder, this.opaque = false});
 
   /// Called at layout time to construct the widget tree. The builder must not
@@ -47,7 +48,6 @@ class HoverableWidget extends RenderObjectWidget {
 }
 
 
-// TODO same as above, we need a builder. The probem with ComponentElement is, that it has no RenderObject
 class HoverableElement extends RenderObjectElement {
   HoverableElement(HoverableWidget widget) : super(widget);
 

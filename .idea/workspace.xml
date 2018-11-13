@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="06550ed3-1113-4b84-ba89-412df665389e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/lib/main.dart" afterPath="$PROJECT_DIR$/example/lib/main.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/desktop/hover_manager.dart" afterPath="$PROJECT_DIR$/lib/desktop/hover_manager.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" afterPath="$PROJECT_DIR$/lib/desktop/hoverable_element.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,21 +19,9 @@
       <file leaf-file-name="hoverable_element.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="16" column="85" lean-forward="false" selection-start-line="16" selection-start-column="85" selection-end-line="16" selection-end-column="85" />
+            <state relative-caret-position="300">
+              <caret line="17" column="56" lean-forward="false" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hover_manager.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/desktop/hover_manager.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#2#27#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -472,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542033015981</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="depth implementation WIP">
+      <created>1542109485151</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1542109485151</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -566,7 +559,8 @@
     <MESSAGE value="refactored stuff" />
     <MESSAGE value="added docs, hover works with moving objects" />
     <MESSAGE value="indentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="indentation" />
+    <MESSAGE value="depth implementation WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="depth implementation WIP" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -720,16 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/desktop/hover_manager.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#2#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_widget.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -738,10 +722,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/desktop/hover_manager.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2468">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#2#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/desktop/hoverable_element.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="16" column="85" lean-forward="false" selection-start-line="16" selection-start-column="85" selection-end-line="16" selection-end-column="85" />
+        <state relative-caret-position="300">
+          <caret line="17" column="56" lean-forward="false" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
           <folding />
         </state>
       </provider>
