@@ -10,4 +10,11 @@ void main() {
     expect(calculator.addOne(0), 1);
     expect(() => calculator.addOne(null), throwsNoSuchMethodError);
   });
+
+
+
+
+  test('basic hover test', () {
+
+  });
 }

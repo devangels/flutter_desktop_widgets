@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_desktop_widgets/desktop/hoverable_element.dart';
+import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 
 
 HoverManager _hoverManager = HoverManager();

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
-import 'package:flutter_desktop_widgets/desktop/hoverable_element.dart';
-import 'package:flutter_desktop_widgets/desktop/hoverable_widget.dart';
+import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
+import 'package:flutter_desktop_widgets/desktop/hover/hoverable_widget.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
