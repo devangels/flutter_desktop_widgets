@@ -13,12 +13,18 @@ import 'package:flutter/scheduler.dart';
 class HoverableWidget extends RenderObjectWidget {
 
 
-  // TODO I want to accept a builder here so SingleChildRenderObjectWidget is probably not the right fit
-  HoverableWidget({this.builder});
+
+  // TODO IgnorePointer is not an inherited widget, this is why we cant depend on it.
+  HoverableWidget({this.builder, this.opaque = false});
 
   /// Called at layout time to construct the widget tree. The builder must not
   /// return null.
   final HoverBuilder builder;
+
+
+
+  /// If this widget absorbs the hover event
+  final bool opaque;
 
   void onHover() {
 

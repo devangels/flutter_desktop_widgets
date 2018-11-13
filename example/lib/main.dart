@@ -56,6 +56,32 @@ class _MyHomePageState extends State<MyHomePage> {
                    child: Material(
                      color: Colors.red,
                      elevation: hover? 8.0 : 0.0,
+                     child: Center(
+                       child: SizedBox(
+                         height: 20.0,
+                         width: 20.0,
+                         child: HoverableWidget(
+                           opaque: true,
+                           builder: (context, hover) {
+                             return Container(
+                               height: 30.0,
+                               width: 30.0,
+                               child: GestureDetector(
+                                 onTap: () {
+                                   setState(() {
+                                     pushed = !pushed;
+                                   });
+                                 },
+                                 child: Material(
+                                   color: Colors.green,
+                                   elevation: hover? 8.0 : 0.0,
+                                 ),
+                               ),
+                             );
+                           },
+                         ),
+                       ),
+                     ),
                    ),
                  ),
                );

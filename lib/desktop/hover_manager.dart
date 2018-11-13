@@ -1,5 +1,7 @@
 
 
+import 'dart:collection';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -28,9 +30,26 @@ class HoverManager {
     });
   }
   // TODO structure to handle depth search
-  Map<HoverableElement, Rect> _hoverableElements = {};
+  SplayTreeMap<HoverableElement, Rect> _hoverableElements = SplayTreeMap(_sort);
 
   List<HoverableElement> _currentlyHovering = [];
+
+
+  /// Because this is private in element
+  ///
+  /// Sorts the elements so the widgets at the bottom of the tree are first
+  /// in the map
+  static int _sort(Element a, Element b) {
+    if (a.depth < b.depth)
+      return 1;
+    if (b.depth < a.depth)
+      return -1;
+    if (b.dirty && !a.dirty)
+      return 1;
+    if (a.dirty && !b.dirty)
+      return -1;
+    return 0;
+  }
 
   /// Because RenderObjects might move while the cursor is sitting still,
   /// save the last cursor position and check against it if the position changes
@@ -40,7 +59,9 @@ class HoverManager {
   void _handleHover(Offset position) {
     _lastPosition = position;
     for(HoverableElement element in _hoverableElements.keys) {
-      _checkCollision(element, position);
+      if(_checkCollision(element, position)) {
+        break;
+      }
     }
   }
 
@@ -64,6 +85,8 @@ class HoverManager {
     assert(pos != null);
     _hoverableElements[element] = pos;
 
+    // TODO can it happen that the depth changes without the element being remounted?
+
     // Because at the very first frame it is null
     if(_lastPosition != null) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -79,7 +102,10 @@ class HoverManager {
     return false;
   }
 
-  void _checkCollision(HoverableElement element, Offset position) {
+  /// Checks for collision and calls the appropriate element methods.
+  ///
+  /// Returns whether this was the last operation to do (element absorbed the pointer)
+  bool _checkCollision(HoverableElement element, Offset position) {
     if(_isInside(_hoverableElements[element], position.dx, position.dy)) {
       if(!_currentlyHovering.contains(element)) {
         _currentlyHovering.add(element);
@@ -87,10 +113,13 @@ class HoverManager {
       } else {
         element.onHoverTick();
       }
+      return element.widget.opaque;
     } else if(_currentlyHovering.contains(element)) {
        element.hoverEnd();
       _currentlyHovering.remove(element);
     }
+
+    return false;
   }
 
 }
