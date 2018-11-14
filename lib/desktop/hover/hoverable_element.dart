@@ -6,17 +6,49 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hover_manager.dart';
-import 'package:flutter_desktop_widgets/desktop/hover/hoverable_widget.dart';
 
 
 
-class HoverableWidget extends RenderObjectWidget {
+
+typedef HoverBuilder = Widget Function(BuildContext context, bool hovering);
+
+class HoveringBuilder extends _HoverableWidget {
+
+  HoveringBuilder({this.builder, this.onHoverStart, this.onHoverEnd, this.onHoverTickCallback}): super(builder: builder);
+
+  final HoverBuilder builder;
+
+  final VoidCallback onHoverStart;
+
+  final VoidCallback onHoverEnd;
+
+  final VoidCallback onHoverTickCallback;
+
+  @override
+  void onHover() {
+    if(onHoverStart != null) onHoverStart();
+  }
+
+  @override
+  void onLeaveHover() {
+    if(onHoverEnd != null) onHoverEnd();
+  }
+
+  @override
+  void onHoverTick() {
+    if(onHoverTickCallback != null) onHoverTickCallback();
+  }
+
+  Widget build(BuildContext context, bool hovering) => builder(context, hovering);
+}
+
+class _HoverableWidget extends RenderObjectWidget {
 
 
 
   // TODO IgnorePointer is not an inherited widget, this is why we can't depend on it.
   // Possible solution it to create an AbsorbHoverWidget
-  HoverableWidget({this.builder, this.opaque = false});
+  _HoverableWidget({this.builder, this.opaque = false});
 
   /// Called at layout time to construct the widget tree. The builder must not
   /// return null.
@@ -40,29 +72,30 @@ class HoverableWidget extends RenderObjectWidget {
   }
 
   @override
-  HoverableElement createElement() => HoverableElement(this);
+  HoverableElement createElement() => new HoverableElement(this);
 
   @override
-  RenderObject createRenderObject(BuildContext context) => HoverableRenderBox(context as HoverableElement);
+  RenderObject createRenderObject(BuildContext context) => HoverableRenderBox(context as RenderObjectElement);
+
 
 }
 
 // TODO when hot reloading and chanign something thats inside the builder
 // it only updates when hovered over it.
 class HoverableElement extends RenderObjectElement {
-  HoverableElement(HoverableWidget widget) : super(widget);
+  HoverableElement(_HoverableWidget widget) : super(widget);
 
 
   @override
-  HoverableWidget get widget => super.widget;
+  _HoverableWidget get widget => super.widget;
 
   @override
   HoverableRenderBox get renderObject => super.renderObject;
 
   Element _child;
 
-
   bool _hovering = false;
+
 
 
   /// Called by the HoverManager when the cursor moves across the hoverable area.
@@ -144,7 +177,7 @@ class HoverableElement extends RenderObjectElement {
 
 
   @override
-  void update(HoverableWidget newWidget) {
+  void update(_HoverableWidget newWidget) {
     assert(widget != newWidget);
     super.update(newWidget);
     assert(widget == newWidget);
@@ -204,3 +237,5 @@ class HoverableRenderBox extends RenderProxyBox {
   }
 
 }
+
+

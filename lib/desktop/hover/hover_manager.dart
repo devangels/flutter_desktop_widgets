@@ -29,8 +29,10 @@ class HoverManager {
       }
     });
   }
-  // TODO structure to handle depth search
-  SplayTreeMap<HoverableElement, Rect> _hoverableElements = SplayTreeMap(_sort);
+
+  // TODO SplayTreeMap uses the comperator function to also check for equality which is doesnt work in this case.
+ // SplayTreeMap<HoverableElement, Rect> _hoverableElements = SplayTreeMap(_sort);
+  Map<HoverableElement, Rect> _hoverableElements = {};
 
   List<HoverableElement> _currentlyHovering = [];
 

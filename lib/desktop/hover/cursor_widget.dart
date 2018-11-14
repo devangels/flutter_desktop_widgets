@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_desktop_widgets/desktop/hover/hoverable_widget.dart';
+import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 
 class CursorWidget extends StatefulWidget {
 
@@ -19,7 +19,7 @@ class _CursorWidgetState extends State<CursorWidget> {
   @override
   Widget build(BuildContext context) {
     return HoveringBuilder(
-      hoverBuilder: (context, hover) {
+      builder: (context, hover) {
         return widget.child;
       },
       onHoverStart: () {
