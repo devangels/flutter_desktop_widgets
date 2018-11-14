@@ -12,6 +12,7 @@ void main() {
   });
 
 
+  //TODO write IgnorePointer test
 
 
   test('basic hover test', () {

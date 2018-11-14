@@ -80,10 +80,15 @@ class _HoverableWidget extends RenderObjectWidget {
 
 }
 
+// TODO MIXIN THe RenderWithChildMixin to
 // TODO when hot reloading and chanign something thats inside the builder
+// TODO Add static int id to help debugging
 // it only updates when hovered over it.
-class HoverableElement extends RenderObjectElement {
-  HoverableElement(_HoverableWidget widget) : super(widget);
+class HoverableElement extends RenderObjectElement implements Comparable<HoverableElement> {
+  HoverableElement(_HoverableWidget widget)
+      : super(widget) {
+    print("Construction Element with width: $widget");
+  }
 
 
   @override
@@ -97,14 +102,27 @@ class HoverableElement extends RenderObjectElement {
   bool _hovering = false;
 
 
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+
+  }
+
+  int compareTo(HoverableElement other) {
+    if (depth < other.depth)
+      return 1;
+    if (other.depth < depth)
+      return -1;
+    return identical(other, this)? 0: 1;
+  }
+
 
   /// Called by the HoverManager when the cursor moves across the hoverable area.
-  void onHoverTick() {
+  void onMouseHover() {
     widget.onHoverTick();
   }
 
   /// Called by the HoverManager when the hover is started.
-  void hoverStarted() {
+  void onMouseEnter() {
     _hovering = true;
     if(owner.debugBuilding) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -119,7 +137,7 @@ class HoverableElement extends RenderObjectElement {
 
 
   /// Called by the HoverManager when the hover is ended.
-  void hoverEnd() {
+  void onMouseExit() {
     _hovering = false;
     if(owner.debugBuilding) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -209,6 +227,7 @@ class HoverableElement extends RenderObjectElement {
 }
 
 
+// TODO RenderProxyBoxWithHittestBehavior
 class HoverableRenderBox extends RenderProxyBox {
 
   HoverableRenderBox(this.hoverableElement);
@@ -216,13 +235,15 @@ class HoverableRenderBox extends RenderProxyBox {
   final HoverableElement hoverableElement;
 
 
-  // TODO take matrixTransformation into account.
   @override
   void paint(PaintingContext context, Offset offset) {
     super.paint(context, offset);
-    final Offset topLeft = localToGlobal(Offset.zero);
-    Rect pos = Rect.fromPoints(topLeft, Offset(topLeft.dx + size.width, topLeft.dy + size.height));
-    HoverManager.instance.updateBox(hoverableElement, pos);
+
+    final Rect pos =  offset & size;
+
+    Matrix4 transform = getTransformTo(null);
+    Rect transformedPos = MatrixUtils.transformRect(transform, pos);
+    HoverManager.instance.updateBox(hoverableElement, transformedPos);
   }
 
   @override

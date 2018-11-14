@@ -9,12 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 
 
-HoverManager _hoverManager = HoverManager();
 
 class HoverManager {
 
   // TODO no static
-  static HoverManager instance = _hoverManager;
+  static final HoverManager instance = HoverManager();
 
   final MethodChannel _methodChannel = const MethodChannel('flutter/desktop', JSONMethodCodec() );
 
@@ -31,27 +30,13 @@ class HoverManager {
   }
 
   // TODO SplayTreeMap uses the comperator function to also check for equality which is doesnt work in this case.
- // SplayTreeMap<HoverableElement, Rect> _hoverableElements = SplayTreeMap(_sort);
+//  SplayTreeMap<HoverableElement, Rect> _hoverableElements = SplayTreeMap();
   Map<HoverableElement, Rect> _hoverableElements = {};
 
   List<HoverableElement> _currentlyHovering = [];
 
 
-  /// Because this is private in element
-  ///
-  /// Sorts the elements so the widgets at the bottom of the tree are first
-  /// in the map
-  static int _sort(Element a, Element b) {
-    if (a.depth < b.depth)
-      return 1;
-    if (b.depth < a.depth)
-      return -1;
-    if (b.dirty && !a.dirty)
-      return 1;
-    if (a.dirty && !b.dirty)
-      return -1;
-    return 0;
-  }
+
 
   /// Because RenderObjects might move while the cursor is sitting still,
   /// save the last cursor position and check against it if the position changes
@@ -110,14 +95,17 @@ class HoverManager {
   bool _checkCollision(HoverableElement element, Offset position) {
     if(_isInside(_hoverableElements[element], position.dx, position.dy)) {
       if(!_currentlyHovering.contains(element)) {
+        // Search for an ignore pointer and return if it is ignoring
+        final IgnorePointer possibleIgnore = element.ancestorWidgetOfExactType(IgnorePointer);
+        if(possibleIgnore.ignoring) return false;
         _currentlyHovering.add(element);
-        element.hoverStarted();
+        element.onMouseEnter();
       } else {
-        element.onHoverTick();
+        element.onMouseHover();
       }
       return element.widget.opaque;
     } else if(_currentlyHovering.contains(element)) {
-       element.hoverEnd();
+       element.onMouseExit();
       _currentlyHovering.remove(element);
     }
 
