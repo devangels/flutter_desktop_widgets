@@ -47,7 +47,8 @@ class HoverableWidget extends RenderObjectWidget {
 
 }
 
-
+// TODO when hot reloading and chanign something thats inside the builder
+// it only updates when hovered over it.
 class HoverableElement extends RenderObjectElement {
   HoverableElement(HoverableWidget widget) : super(widget);
 

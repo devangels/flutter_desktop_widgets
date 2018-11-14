@@ -6,6 +6,7 @@ import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 
 typedef HoverBuilder = Widget Function(BuildContext context, bool hovering);
 
+// TODO this class in redundan, remove it
 class HoveringBuilder extends HoverableWidget {
 
   HoveringBuilder({this.hoverBuilder, this.onHoverStart, this.onHoverEnd, this.onHoverTickCallback});

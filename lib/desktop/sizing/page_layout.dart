@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 /// the layout is quite different (Playing navigation in a [Row] vs in a [NavigationDrawer]
 ///
 /// TODO is this useful?
+/// Probably not as super class, but exposing two builders should be nice
 abstract class PageLayoutWidget extends StatelessWidget {
 
 
