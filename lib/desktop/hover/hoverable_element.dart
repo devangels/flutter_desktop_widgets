@@ -80,6 +80,8 @@ class _HoverableWidget extends RenderObjectWidget {
 
 }
 
+
+
 // TODO MIXIN THe RenderWithChildMixin to
 // TODO when hot reloading and chanign something thats inside the builder
 // TODO Add static int id to help debugging
@@ -87,9 +89,14 @@ class _HoverableWidget extends RenderObjectWidget {
 class HoverableElement extends RenderObjectElement implements Comparable<HoverableElement> {
   HoverableElement(_HoverableWidget widget)
       : super(widget) {
-    print("Construction Element with width: $widget");
+    id = idCount++;
+    print("Construction Element with id $id");
+
   }
 
+  static int idCount = 0;
+
+  int id;
 
   @override
   _HoverableWidget get widget => super.widget;
@@ -241,13 +248,40 @@ class HoverableRenderBox extends RenderProxyBox {
 
     final Rect pos =  offset & size;
 
+    if(hoverableElement.id == 1) {
+      print("Element ${hoverableElement.id} repainted");
+    }
+
     Matrix4 transform = getTransformTo(null);
     Rect transformedPos = MatrixUtils.transformRect(transform, pos);
     HoverManager.instance.updateBox(hoverableElement, transformedPos);
   }
 
+
+
+
+  @override
+  void applyPaintTransform(RenderObject child, Matrix4 transform) {
+    if(hoverableElement.id == 1) {
+      print("Element ${hoverableElement.id} applyied transform");
+    }
+  }
+
+  @override
+  void performResize() {
+    super.performResize();
+
+    if(hoverableElement.id == 1) {
+      print("Element ${hoverableElement.id} applyied RESIZE");
+    }
+  }
+
+
   @override
   void performLayout() {
+    if(hoverableElement.id == 1) {
+      print("Element ${hoverableElement.id} performtedLayout");
+    }
     if (child != null) {
       child.layout(constraints, parentUsesSize: true);
       size = child.size;

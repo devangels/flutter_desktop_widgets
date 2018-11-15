@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
-import 'package:flutter_desktop_widgets/desktop/hover/hoverable_widget.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
@@ -42,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
        child: Column(
          children: <Widget>[
            AnimatedContainer(height: pushed? 200.0: 0.0, duration: Duration(seconds: 2),),
-           HoverableWidget(
+           HoveringBuilder(
              builder: (context, hover) {
                return Container(
                  height: 100.0,
@@ -60,8 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                        child: SizedBox(
                          height: 20.0,
                          width: 20.0,
-                         child: HoverableWidget(
-                           opaque: true,
+                         child: HoveringBuilder(
                            builder: (context, hover) {
                              return Container(
                                height: 30.0,

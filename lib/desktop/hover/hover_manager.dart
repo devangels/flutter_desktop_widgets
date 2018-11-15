@@ -74,6 +74,7 @@ class HoverManager {
 
     // TODO can it happen that the depth changes without the element being remounted?
 
+
     // Because at the very first frame it is null
     if(_lastPosition != null) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
