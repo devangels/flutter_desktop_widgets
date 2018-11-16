@@ -22,7 +22,7 @@ class _CursorWidgetState extends State<CursorWidget> {
       builder: (context, hover) {
         return widget.child;
       },
-      onHoverStart: () {
+      onHoverStart: (hoverPos) {
         _channel.invokeMethod("changeCursor");
       },
       onHoverTickCallback: () {

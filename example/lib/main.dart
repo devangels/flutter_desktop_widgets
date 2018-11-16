@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
+import 'package:flutter_desktop_widgets/desktop/navigation/toolbar.dart';
+import 'package:flutter_desktop_widgets/desktop/hover/splash_hover.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
@@ -40,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new Center(
        child: Column(
          children: <Widget>[
+           MenuBar(),
            AnimatedContainer(height: pushed? 200.0: 0.0, duration: Duration(seconds: 2),),
            HoveringBuilder(
              builder: (context, hover) {
@@ -84,6 +87,28 @@ class _MyHomePageState extends State<MyHomePage> {
                  ),
                );
              },
+           ),
+           Material(
+             color: Colors.red,
+             child: SplashHover(
+               child: SizedBox(
+                 width: 100.0,
+                 height: 100.0,
+               ),
+             ),
+           ),
+           RaisedButton(
+             onPressed: () {},
+           ),
+           SizedBox(
+             height: 100.0,
+             width: 100.0,
+             child: Material(
+               color: Colors.blue,
+               child: InkWell(
+                 onTap: () {},
+               ),
+             ),
            ),
          ],
        ),

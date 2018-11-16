@@ -100,7 +100,7 @@ class HoverManager {
         final IgnorePointer possibleIgnore = element.ancestorWidgetOfExactType(IgnorePointer);
         if(possibleIgnore.ignoring) return false;
         _currentlyHovering.add(element);
-        element.onMouseEnter();
+        element.onMouseEnter(HoverPos(position));
       } else {
         element.onMouseHover();
       }

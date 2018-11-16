@@ -9,6 +9,15 @@ import 'package:flutter_desktop_widgets/desktop/hover/hover_manager.dart';
 
 
 
+class HoverPos {
+
+  HoverPos(this.pos);
+
+  // Global Coordinates
+  final Offset pos;
+}
+
+typedef OnHoverStart = void Function(HoverPos pos);
 
 typedef HoverBuilder = Widget Function(BuildContext context, bool hovering);
 
@@ -18,15 +27,15 @@ class HoveringBuilder extends _HoverableWidget {
 
   final HoverBuilder builder;
 
-  final VoidCallback onHoverStart;
+  final OnHoverStart onHoverStart;
 
   final VoidCallback onHoverEnd;
 
   final VoidCallback onHoverTickCallback;
 
   @override
-  void onHover() {
-    if(onHoverStart != null) onHoverStart();
+  void onHover(HoverPos hoverPos) {
+    if(onHoverStart != null) onHoverStart(hoverPos);
   }
 
   @override
@@ -59,7 +68,7 @@ class _HoverableWidget extends RenderObjectWidget {
   /// If this widget absorbs the hover event
   final bool opaque;
 
-  void onHover() {
+  void onHover(HoverPos hoverPos) {
 
   }
 
@@ -129,15 +138,15 @@ class HoverableElement extends RenderObjectElement implements Comparable<Hoverab
   }
 
   /// Called by the HoverManager when the hover is started.
-  void onMouseEnter() {
+  void onMouseEnter(HoverPos hoverPos) {
     _hovering = true;
     if(owner.debugBuilding) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        widget.onHover();
+        widget.onHover(hoverPos);
         markNeedsBuild();
       });
     } else {
-      widget.onHover();
+      widget.onHover(hoverPos);
       markNeedsBuild();
     }
   }
@@ -248,13 +257,18 @@ class HoverableRenderBox extends RenderProxyBox {
 
     final Rect pos =  offset & size;
 
-    if(hoverableElement.id == 1) {
-      print("Element ${hoverableElement.id} repainted");
-    }
 
+  //  print("Element ${hoverableElement.id} repainted");
+
+
+    // TODO @Simon doesnt work
     Matrix4 transform = getTransformTo(null);
     Rect transformedPos = MatrixUtils.transformRect(transform, pos);
-    HoverManager.instance.updateBox(hoverableElement, transformedPos);
+
+    final Offset l = localToGlobal(Offset.zero);
+    final Rect t = Rect.fromLTWH(l.dx, l.dy, size.width, size.height);
+
+    HoverManager.instance.updateBox(hoverableElement, t);
   }
 
 
