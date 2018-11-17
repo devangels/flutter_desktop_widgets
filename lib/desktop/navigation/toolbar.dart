@@ -25,6 +25,9 @@ class _MenuBarState extends State<MenuBar> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 64.0,
+      child: Row(
+        children: widget.children
+      ),
 
     );
   }
