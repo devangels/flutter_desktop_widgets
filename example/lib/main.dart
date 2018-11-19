@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
-import 'package:flutter_desktop_widgets/desktop/navigation/toolbar.dart';
+import 'package:flutter_desktop_widgets/desktop/navigation/menu_bar.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/splash_hover.dart';
 
 void main() {
@@ -42,7 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new Center(
        child: Column(
          children: <Widget>[
-           MenuBar(),
+           MenuBar(
+             children: [
+               MenuBarTopLevelEntry(
+                 text: "Hi",
+
+               ),
+             ],
+           ),
            AnimatedContainer(height: pushed? 200.0: 0.0, duration: Duration(seconds: 2),),
            HoveringBuilder(
              builder: (context, hover) {
