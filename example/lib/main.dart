@@ -46,7 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
              children: [
                MenuBarTopLevelEntry(
                  text: "Hi",
-
+               ),
+               MenuBarTopLevelEntry(
+                 text: "dasdasd",
+               ),
+               MenuBarTopLevelEntry(
+                 text: "Hasdasdasdi",
                ),
              ],
            ),
@@ -105,7 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
              ),
            ),
            RaisedButton(
-             onPressed: () {},
+             onPressed: () {
+               print("Pressed this aweseom button");
+             },
            ),
            SizedBox(
              height: 100.0,
@@ -117,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                ),
              ),
            ),
+           TextField(),
          ],
        ),
       ),
