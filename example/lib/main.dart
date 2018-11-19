@@ -44,15 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
          children: <Widget>[
            MenuBar(
              children: [
-               MenuBarTopLevelEntry(
-                 text: "Hi",
-               ),
-               MenuBarTopLevelEntry(
-                 text: "dasdasd",
-               ),
-               MenuBarTopLevelEntry(
-                 text: "Hasdasdasdi",
-               ),
+               Text("Hi"), Text("LOL"), Text("Edit")
              ],
            ),
            AnimatedContainer(height: pushed? 200.0: 0.0, duration: Duration(seconds: 2),),

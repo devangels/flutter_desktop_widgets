@@ -62,7 +62,7 @@ class MenuBar extends StatefulWidget {
 
   const MenuBar({Key key, this.children}) : super(key: key);
 
-  final List<MenuBarTopLevelEntry> children;
+  final List<Widget> children;
 
 
   static _MenuBarState of(BuildContext context) {
@@ -144,7 +144,14 @@ class _MenuBarState extends State<MenuBar> {
       child: Container(
         color: Colors.yellow,
         child: Row(
-          children: widget.children
+          children: widget.children.asMap().entries.map((entry) {
+            return MenuBarTopLevelEntry(
+              child: entry.value,
+              onHoverStart: () {
+
+              },
+            );
+          }).toList()
         ),
 
       ),
@@ -159,11 +166,11 @@ class _MenuBarState extends State<MenuBar> {
 class MenuBarTopLevelEntry extends StatefulWidget {
 
 
-  const MenuBarTopLevelEntry({Key key, this.children, this.text, this.onHoverStart}) : super(key: key);
+  const MenuBarTopLevelEntry({Key key, this.children, this.child, this.onHoverStart}) : super(key: key);
 
   final List<Widget> children;
 
-  final String text;
+  final Widget child;
 
   final VoidCallback onHoverStart;
 
@@ -207,7 +214,7 @@ class MenuBarTopLevelEntryState extends State<MenuBarTopLevelEntry> {
               height: 16.0,
               child: InkWell(
                 onTap: openMenu,
-                child: Text(widget.text),
+                child: widget.child,
               ),
             ),
           ),
