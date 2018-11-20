@@ -86,6 +86,11 @@ class _HoverableWidget extends RenderObjectWidget {
   @override
   RenderObject createRenderObject(BuildContext context) => HoverableRenderBox(context as RenderObjectElement);
 
+  @override
+  void updateRenderObject(BuildContext context, HoverableRenderBox renderObject) {
+    print("Upadting render object");
+  }
+
 
 }
 
@@ -187,6 +192,7 @@ class HoverableElement extends RenderObjectElement implements Comparable<Hoverab
   }
 
 
+
   @override
   void performRebuild() {
     Widget built = widget.builder(this, _hovering);
@@ -251,6 +257,7 @@ class HoverableRenderBox extends RenderProxyBox {
   final HoverableElement hoverableElement;
 
 
+
   @override
   void paint(PaintingContext context, Offset offset) {
     super.paint(context, offset);
@@ -290,6 +297,7 @@ class HoverableRenderBox extends RenderProxyBox {
       print("Element ${hoverableElement.id} applyied RESIZE");
     }
   }
+
 
 
   @override
