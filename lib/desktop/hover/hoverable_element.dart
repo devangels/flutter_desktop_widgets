@@ -18,43 +18,21 @@ typedef OnHoverStart = void Function(HoverPos pos);
 
 typedef HoverBuilder = Widget Function(BuildContext context, bool hovering);
 
-class HoveringBuilder extends _HoverableWidget {
 
-  HoveringBuilder({this.builder, this.onHoverStart, this.onHoverEnd, this.onHoverTickCallback}): super(builder: builder);
+class HoveringBuilder extends RenderObjectWidget {
 
-  final HoverBuilder builder;
+
+
+  // TODO IgnorePointer is not an inherited widget, this is why we can't depend on it.
+  // Possible solution it to create an AbsorbHoverWidget
+  HoveringBuilder({@required this.builder, this.onHoverStart, this.onHoverEnd, this.onHoverTickCallback, this.opaque = false});
+
 
   final OnHoverStart onHoverStart;
 
   final VoidCallback onHoverEnd;
 
   final VoidCallback onHoverTickCallback;
-
-  @override
-  void onHover(HoverPos hoverPos) {
-    if(onHoverStart != null) onHoverStart(hoverPos);
-  }
-
-  @override
-  void onLeaveHover() {
-    if(onHoverEnd != null) onHoverEnd();
-  }
-
-  @override
-  void onHoverTick() {
-    if(onHoverTickCallback != null) onHoverTickCallback();
-  }
-
-  Widget build(BuildContext context, bool hovering) => builder(context, hovering);
-}
-
-class _HoverableWidget extends RenderObjectWidget {
-
-
-
-  // TODO IgnorePointer is not an inherited widget, this is why we can't depend on it.
-  // Possible solution it to create an AbsorbHoverWidget
-  _HoverableWidget({this.builder, this.opaque = false});
 
   /// Called at layout time to construct the widget tree. The builder must not
   /// return null.
@@ -65,17 +43,7 @@ class _HoverableWidget extends RenderObjectWidget {
   /// If this widget absorbs the hover event
   final bool opaque;
 
-  void onHover(HoverPos hoverPos) {
 
-  }
-
-  void onLeaveHover() {
-
-  }
-
-  void onHoverTick() {
-
-  }
 
   @override
   HoverableElement createElement() => new HoverableElement(this);
@@ -98,12 +66,12 @@ class _HoverableWidget extends RenderObjectWidget {
 // TODO Add static int id to help debugging
 // it only updates when hovered over it.
 class HoverableElement extends RenderObjectElement{
-  HoverableElement(_HoverableWidget widget)
+  HoverableElement(HoveringBuilder widget)
       : super(widget);
 
 
   @override
-  _HoverableWidget get widget => super.widget;
+  HoveringBuilder get widget => super.widget;
 
   @override
   HoverableRenderBox get renderObject => super.renderObject;
@@ -125,7 +93,7 @@ class HoverableElement extends RenderObjectElement{
 
   /// Called by the HoverManager when the cursor moves across the hoverable area.
   void onMouseHover() {
-    widget.onHoverTick();
+    widget.onHoverTickCallback?.call();
   }
 
   /// Called by the HoverManager when the hover is started.
@@ -133,11 +101,11 @@ class HoverableElement extends RenderObjectElement{
     _hovering = true;
     if(owner.debugBuilding) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        widget.onHover(hoverPos);
+        widget.onHoverStart?.call(hoverPos);
         markNeedsBuild();
       });
     } else {
-      widget.onHover(hoverPos);
+      widget.onHoverStart?.call(hoverPos);
       markNeedsBuild();
     }
   }
@@ -148,11 +116,11 @@ class HoverableElement extends RenderObjectElement{
     _hovering = false;
     if(owner.debugBuilding) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        widget.onLeaveHover();
+        widget.onHoverEnd?.call();
         markNeedsBuild();
       });
     } else {
-      widget.onLeaveHover();
+      widget.onHoverEnd?.call();
       markNeedsBuild();
     }
   }
@@ -190,7 +158,6 @@ class HoverableElement extends RenderObjectElement{
   }
 
 
-
   @override
   void visitChildren(ElementVisitor visitor) {
     if (_child != null)
@@ -205,11 +172,12 @@ class HoverableElement extends RenderObjectElement{
 
 
   @override
-  void update(_HoverableWidget newWidget) {
+  void update(HoveringBuilder newWidget) {
     assert(widget != newWidget);
     super.update(newWidget);
     assert(widget == newWidget);
-    renderObject.markNeedsLayout();
+    markNeedsBuild();
+   // renderObject.markNeedsLayout();
   }
 
 
