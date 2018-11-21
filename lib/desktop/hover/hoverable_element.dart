@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
@@ -88,7 +85,7 @@ class _HoverableWidget extends RenderObjectWidget {
 
   @override
   void updateRenderObject(BuildContext context, HoverableRenderBox renderObject) {
-    print("Upadting render object");
+
   }
 
 
@@ -100,17 +97,10 @@ class _HoverableWidget extends RenderObjectWidget {
 // TODO when hot reloading and chanign something thats inside the builder
 // TODO Add static int id to help debugging
 // it only updates when hovered over it.
-class HoverableElement extends RenderObjectElement implements Comparable<HoverableElement> {
+class HoverableElement extends RenderObjectElement{
   HoverableElement(_HoverableWidget widget)
-      : super(widget) {
-    id = idCount++;
-    print("Construction Element with id $id");
+      : super(widget);
 
-  }
-
-  static int idCount = 0;
-
-  int id;
 
   @override
   _HoverableWidget get widget => super.widget;
@@ -123,10 +113,6 @@ class HoverableElement extends RenderObjectElement implements Comparable<Hoverab
   bool _hovering = false;
 
 
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-
-  }
 
   int compareTo(HoverableElement other) {
     if (depth < other.depth)
@@ -197,6 +183,8 @@ class HoverableElement extends RenderObjectElement implements Comparable<Hoverab
   void performRebuild() {
     Widget built = widget.builder(this, _hovering);
     _child = updateChild(_child, built, null);
+    print("Rebuilt");
+    //TODO fix this
     assert(_child != null);
     super.performRebuild(); // Calls widget.updateRenderObject (a no-op in this case).
   }
@@ -265,9 +253,6 @@ class HoverableRenderBox extends RenderProxyBox {
     final Rect pos =  offset & size;
 
 
-  //  print("Element ${hoverableElement.id} repainted");
-
-
     // TODO @Simon doesnt work
     Matrix4 transform = getTransformTo(null);
     Rect transformedPos = MatrixUtils.transformRect(transform, pos);
@@ -282,29 +267,12 @@ class HoverableRenderBox extends RenderProxyBox {
   /// TODO look at layers and see if we can get a callback when RepaintedBoundary is there
 
 
-  @override
-  void applyPaintTransform(RenderObject child, Matrix4 transform) {
-    if(hoverableElement.id == 1) {
-      print("Element ${hoverableElement.id} applyied transform");
-    }
-  }
 
-  @override
-  void performResize() {
-    super.performResize();
-
-    if(hoverableElement.id == 1) {
-      print("Element ${hoverableElement.id} applyied RESIZE");
-    }
-  }
 
 
 
   @override
   void performLayout() {
-    if(hoverableElement.id == 1) {
-      print("Element ${hoverableElement.id} performtedLayout");
-    }
     if (child != null) {
       child.layout(constraints, parentUsesSize: true);
       size = child.size;
