@@ -12,25 +12,27 @@ import 'package:flutter/material.dart';
 ///
 /// TODO is this useful?
 /// Probably not as super class, but exposing two builders should be nice
-abstract class PageLayoutWidget extends StatelessWidget {
+class PageLayoutWidget extends StatelessWidget {
+
+
+  PageLayoutWidget({@required this.smallBuilder, @required this.bigBuilder});
 
 
   @protected
   double get breakpoint => 500.0;
 
 
-
-  Widget buildSmall(BuildContext context);
-  Widget buildBig(BuildContext context);
+  final WidgetBuilder smallBuilder;
+  final WidgetBuilder bigBuilder;
 
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       if(constraints.maxWidth > breakpoint) {
-        return buildBig(context);
+        return bigBuilder(context);
       } else {
-        return buildSmall(context);
+        return smallBuilder(context);
       }
     },);
   }

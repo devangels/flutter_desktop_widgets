@@ -51,7 +51,7 @@ class HoveringBuilder extends _HoverableWidget {
   Widget build(BuildContext context, bool hovering) => builder(context, hovering);
 }
 
-class _HoverableWidget extends RenderObjectWidget {
+class _HoverableWidget extends RenderObjectWidget{
 
 
 
@@ -100,7 +100,7 @@ class _HoverableWidget extends RenderObjectWidget {
 // TODO when hot reloading and chanign something thats inside the builder
 // TODO Add static int id to help debugging
 // it only updates when hovered over it.
-class HoverableElement extends RenderObjectElement implements Comparable<HoverableElement> {
+class HoverableElement extends RenderObjectElement {
   HoverableElement(_HoverableWidget widget)
       : super(widget) {
     id = idCount++;
@@ -121,6 +121,8 @@ class HoverableElement extends RenderObjectElement implements Comparable<Hoverab
   Element _child;
 
   bool _hovering = false;
+
+
 
 
   @override
