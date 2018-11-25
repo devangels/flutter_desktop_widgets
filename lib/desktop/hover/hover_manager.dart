@@ -25,9 +25,23 @@ class HoverManager {
      //   final Duration timeStamp = Duration(milliseconds: call.arguments['timeStamp']);
         final Offset offset = Offset(physicalX, physicalY);
         _handleHover(offset);
+      } else if(call.method == 'onScrolled') {
+        final double offsetX = call.arguments['xOffset'];
+        final double offsetY = call.arguments['yOffset'];
+        final Offset offset = Offset(offsetX, offsetY);
+        scrollListeners.forEach((it) => it(offset));
       }
     });
   }
+
+  /// TODO remove from here
+  /// This is for scrolling, because there can only be one handler
+  List<ValueChanged<Offset>> scrollListeners = [];
+
+  void addScrollListener(ValueChanged<Offset> listener) {
+    scrollListeners.add(listener);
+  }
+  // TODO add remove method
 
   // TODO SplayTreeMap uses the comperator function to also check for equality which is doesnt work in this case.
 //  SplayTreeMap<HoverableElement, Rect> _hoverableElements = SplayTreeMap();

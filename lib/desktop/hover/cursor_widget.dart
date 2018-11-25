@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 
+
+
+enum CursorType {
+  Arrow,
+  Beam,
+  Crosshair,
+  Hand,
+  ResizeX,
+  ResizeY,
+}
 class CursorWidget extends StatefulWidget {
 
-  const CursorWidget({Key key, this.child}) : super(key: key);
+  const CursorWidget({Key key, this.child, @required this.cursorType}) : super(key: key);
 
   final Widget child;
+
+  final CursorType cursorType;
 
   @override
   _CursorWidgetState createState() => new _CursorWidgetState();
@@ -23,7 +35,7 @@ class _CursorWidgetState extends State<CursorWidget> {
         return widget.child;
       },
       onHoverStart: (hoverPos) {
-        _channel.invokeMethod("changeCursor");
+        _channel.invokeMethod("changeCursor", {"cursor": widget.cursorType.toString().substring("CursorType.".length)});
       },
       onHoverTickCallback: () {
       },

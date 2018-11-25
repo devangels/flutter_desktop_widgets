@@ -151,7 +151,6 @@ class HoverableElement extends RenderObjectElement{
   void performRebuild() {
     Widget built = widget.builder(this, _hovering);
     _child = updateChild(_child, built, null);
-    print("Rebuilt");
     //TODO fix this
     assert(_child != null);
     super.performRebuild(); // Calls widget.updateRenderObject (a no-op in this case).
