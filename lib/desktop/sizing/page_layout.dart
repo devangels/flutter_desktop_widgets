@@ -10,16 +10,12 @@ import 'package:flutter/material.dart';
 /// In such situation it might be nicer to have completely different build methods because
 /// the layout is quite different (Playing navigation in a [Row] vs in a [NavigationDrawer]
 ///
-/// TODO is this useful?
 /// Probably not as super class, but exposing two builders should be nice
 class PageLayoutWidget extends StatelessWidget {
 
+  PageLayoutWidget({@required this.smallBuilder, @required this.bigBuilder, this.breakpoint = 500.0});
 
-  PageLayoutWidget({@required this.smallBuilder, @required this.bigBuilder});
-
-
-  @protected
-  double get breakpoint => 500.0;
+  final double breakpoint;
 
 
   final WidgetBuilder smallBuilder;

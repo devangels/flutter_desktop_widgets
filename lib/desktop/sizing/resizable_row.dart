@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/cursor_widget.dart';
 
+/// TODO WIP
 /// PC Widget
 ///
 /// A row which lets the user resize the proportions between the widgets
@@ -59,13 +60,11 @@ class _ResizableRowState extends State<ResizableRow> {
 
   int currentlyDraggingIndex;
 
-
   @override
   void initState() {
     super.initState();
     flexValues = widget.initialFlex;
   }
-
 
   @override
   Widget build(BuildContext context) {
