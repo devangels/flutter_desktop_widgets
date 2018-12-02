@@ -22,7 +22,6 @@ typedef HoverBuilder = Widget Function(BuildContext context, bool hovering);
 class HoveringBuilder extends RenderObjectWidget {
 
 
-
   // TODO IgnorePointer is not an inherited widget, this is why we can't depend on it.
   // Possible solution it to create an AbsorbHoverWidget
   HoveringBuilder({@required this.builder, this.onHoverStart, this.onHoverEnd, this.onHoverTickCallback, this.opaque = false});
@@ -56,9 +55,7 @@ class HoveringBuilder extends RenderObjectWidget {
 
   }
 
-
 }
-
 
 
 // TODO MIXIN THe RenderWithChildMixin to
@@ -79,7 +76,6 @@ class HoverableElement extends RenderObjectElement{
   Element _child;
 
   bool _hovering = false;
-
 
 
   int compareTo(HoverableElement other) {
@@ -146,7 +142,6 @@ class HoverableElement extends RenderObjectElement{
   }
 
 
-
   @override
   void performRebuild() {
     Widget built = widget.builder(this, _hovering);
@@ -155,7 +150,6 @@ class HoverableElement extends RenderObjectElement{
     assert(_child != null);
     super.performRebuild(); // Calls widget.updateRenderObject (a no-op in this case).
   }
-
 
   @override
   void visitChildren(ElementVisitor visitor) {
@@ -178,7 +172,6 @@ class HoverableElement extends RenderObjectElement{
     markNeedsBuild();
    // renderObject.markNeedsLayout();
   }
-
 
   @override
   void insertChildRenderObject(RenderObject child, dynamic slot) {
@@ -211,19 +204,9 @@ class HoverableRenderBox extends RenderProxyBox {
 
   final HoverableElement hoverableElement;
 
-
-
   @override
   void paint(PaintingContext context, Offset offset) {
     super.paint(context, offset);
-
-    final Rect pos =  offset & size;
-
-
-    // TODO @Simon doesnt work
-    Matrix4 transform = getTransformTo(null);
-    Rect transformedPos = MatrixUtils.transformRect(transform, pos);
-
     final Offset l = localToGlobal(Offset.zero);
     final Rect t = Rect.fromLTWH(l.dx, l.dy, size.width, size.height);
 
@@ -232,11 +215,6 @@ class HoverableRenderBox extends RenderProxyBox {
 
 
   /// TODO look at layers and see if we can get a callback when RepaintedBoundary is there
-
-
-
-
-
 
   @override
   void performLayout() {
