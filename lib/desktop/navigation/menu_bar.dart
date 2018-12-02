@@ -4,6 +4,13 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 
 
+// TODO is is very experimental
+//
+// Menus should probably be done with the native API to work on all operating systems as intended.
+// For example on MAc the MenuBar isn't even inside the application!
+//
+// On Windows it is also possible to have a menu open which expands beyond the window (resize the application to be really
+// small and then open a menu), this is not possible with Flutter because we are constrained to the actual window.
 
 class _InheritedMenuBar extends InheritedWidget {
   const _InheritedMenuBar({
@@ -87,8 +94,6 @@ class _MenuBarState extends State<MenuBar> with MenuNavigator<MenuBar>{
 
   //TODO not static
   static OverlayEntry _gestureOverlay;
-
-
 
   FocusNode node = FocusNode();
 
