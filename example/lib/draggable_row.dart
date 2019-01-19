@@ -36,20 +36,26 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         title: new Text(widget.title),
       ),
-      body: ResizableRow(
-        initialFlex: [2,1],
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              color: Colors.grey,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-            ),
-          ),
-        ],
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          double one = (constraints.maxWidth / 2);
+          double two = (constraints.maxWidth - constraints.maxWidth / 2);
+          return ResizableRow(
+            initialFlex: [one, two],
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  color: Colors.grey,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

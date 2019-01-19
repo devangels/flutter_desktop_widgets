@@ -19,6 +19,7 @@ class ResizableRow extends StatefulWidget {
     this.textDirection,
     this.verticalDirection = VerticalDirection.down,
     this.textBaseline,
+    this.width
   })
       : assert(() {
         return true;
@@ -46,7 +47,9 @@ class ResizableRow extends StatefulWidget {
 
   final TextBaseline textBaseline;
 
-  final List<int> initialFlex;
+  final List<double> initialFlex;
+
+  final double width;
 
 
   @override
@@ -56,7 +59,7 @@ class ResizableRow extends StatefulWidget {
 class _ResizableRowState extends State<ResizableRow> {
 
 
-  List<int> flexValues;
+  List<double> flexValues;
 
   int currentlyDraggingIndex;
 
@@ -68,39 +71,57 @@ class _ResizableRowState extends State<ResizableRow> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: widget.crossAxisAlignment,
-      mainAxisAlignment: widget.mainAxisAlignment,
-      mainAxisSize: widget.mainAxisSize,
-      textDirection: widget.textDirection,
-      textBaseline: widget.textBaseline,
-      verticalDirection: widget.verticalDirection,
-      children: widget.children.asMap().map((index, it) {
-        return MapEntry(index,
-            Expanded(
-              flex: flexValues[index],
-              child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                it,
-                GestureDetector(
-                  onHorizontalDragStart: (details) => onDragStart(index),
-                  onHorizontalDragUpdate: onDragUpdate,
-                  onHorizontalDragDown: (_) => onDragStart(index),
-                  onHorizontalDragCancel: () => print("canceled"),
-                  onHorizontalDragEnd: (_) => print("ended"),
-                  child: CursorWidget(
-                    cursorType: CursorType.ResizeX,
-                    child: Container(
-                      width: 15.0,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            ));
-      }).values.toList(),
+    return Column(
+      children: <Widget>[
+        RaisedButton(
+          child: Text("Increase"),
+          onPressed: () {
+            print("ticking");
+            setState(() {
+              flexValues[0] += 1;
+            });
+          },
+        ),
+        Expanded(
+          child: LayoutBuilder(builder: (context, constraints) {
+
+            return Row(
+              crossAxisAlignment: widget.crossAxisAlignment,
+              mainAxisAlignment: widget.mainAxisAlignment,
+              mainAxisSize: widget.mainAxisSize,
+              textDirection: widget.textDirection,
+              textBaseline: widget.textBaseline,
+              verticalDirection: widget.verticalDirection,
+              children: widget.children.asMap().map((index, it) {
+                return MapEntry(index,
+                    Expanded(
+                      flex: flexValues[index].floor(),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          it,
+                          GestureDetector(
+                            onHorizontalDragStart: (details) => onDragStart(index),
+                            onHorizontalDragUpdate: onDragUpdate,
+                            onHorizontalDragDown: (_) => onDragStart(index),
+                            onHorizontalDragCancel: () => print("canceled"),
+                            onHorizontalDragEnd: (_) => print("ended"),
+                            child: CursorWidget(
+                              cursorType: CursorType.ResizeX,
+                              child: Container(
+                                width: 15.0,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ));
+              }).values.toList(),
+            );
+          })
+        ),
+      ],
     );
   }
 

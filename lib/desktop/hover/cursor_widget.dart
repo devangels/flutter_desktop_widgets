@@ -12,7 +12,27 @@ enum CursorType {
   ResizeX,
   ResizeY,
 }
-class CursorWidget extends StatefulWidget {
+
+
+class CursorManager {
+
+  CursorManager._();
+
+  static CursorManager instance = CursorManager._();
+
+
+  final MethodChannel _channel = MethodChannel("Cursor", JSONMethodCodec());
+
+  void setCursor(CursorType type) {
+    _channel.invokeMethod("changeCursor", {"cursor": type.toString().substring("CursorType.".length)});
+  }
+
+  void resetCursor() {
+    _channel.invokeMethod("resetCursor");
+  }
+}
+
+class CursorWidget extends StatelessWidget{
 
   const CursorWidget({Key key, this.child, @required this.cursorType}) : super(key: key);
 
@@ -21,28 +41,21 @@ class CursorWidget extends StatefulWidget {
   final CursorType cursorType;
 
   @override
-  _CursorWidgetState createState() => new _CursorWidgetState();
-}
-
-class _CursorWidgetState extends State<CursorWidget> {
-
-  final MethodChannel _channel = MethodChannel("Cursor", JSONMethodCodec());
-
-  @override
   Widget build(BuildContext context) {
     return HoveringBuilder(
       builder: (context, hover) {
-        return widget.child;
+        return child;
       },
       onHoverStart: (hoverPos) {
-        _channel.invokeMethod("changeCursor", {"cursor": widget.cursorType.toString().substring("CursorType.".length)});
+        CursorManager.instance.setCursor(cursorType);
       },
       onHoverTickCallback: () {
       },
       onHoverEnd: () {
-        _channel.invokeMethod("resetCursor");
+        CursorManager.instance.resetCursor();
       },
     );
   }
+
 }
 
